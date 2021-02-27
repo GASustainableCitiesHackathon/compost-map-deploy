@@ -33,7 +33,7 @@ function Footer() {
                     <FormWithButton>
                         <div className="fixedDiv">
                             <form autoComplete="off" action="/" method="get">
-                                <input placeholder="Email" type="text" id="lname" name="lname" /><span><button type="submit" value="submit"> <img src="./icons/right-arrow.png" alt="Right Arrow" width="46px" /></button></span>
+                                <input placeholder="Email" type="text" id="" name="lname" /><span><button type="submit" value="submit"> <img src="./icons/right-arrow.png" alt="Right Arrow" width="46px" /></button></span>
 
                             </form>
                         </div>

@@ -10,6 +10,7 @@ import About from "./components/About/About";
 import Footer from './components/Footer/Footer';
 import Faq from "./components/HomePage/Faq/Faq"
 import HomePageBody from "./components/HomePage/HomePageBody/HomePageBody"
+import Header from './components/Nav/Header';
 
 //TODO: import About from "./components/About/About";
 //TODO: import AuthenticatedRoute from "./components/AuthenticatedRoute/AuthenticatedRoute";
@@ -73,6 +74,19 @@ function App() {
     return (
         <>
             <GlobalStyles />
+            <nav>
+                <Header user={user} />
+                {/* {msgAlerts.map((msgAlert) => (
+                    <AutoDismissAlert
+                        key={msgAlert.id}
+                        heading={msgAlert.heading}
+                        variant={msgAlert.variant}
+                        message={msgAlert.message}
+                        id={msgAlert.id}
+                        deleteAlert={this.deleteAlert}
+                    />
+                ))} */}
+            </nav>
             <header>
                 {/* //! HEADER 
             <Header user={user} />
