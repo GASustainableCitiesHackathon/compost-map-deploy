@@ -2,8 +2,8 @@ import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
 import react, { useEffect, useState, useRef } from "react";
-import ReactMap from './components/ReactMap';
-import ReactMapGL from './components/ReactMapGL';
+import ReactMap from './components/Maps/ReactMap';
+import ReactMapGL from './components/Maps/ReactMapGL';
 
 
 function App() {
