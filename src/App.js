@@ -38,8 +38,8 @@ function App() {
     const [selectedBorough, setSelectedBorough] = useState("All");
     const [mapData, setMapData] = useState([])
     const [viewport, setViewport] = useState({
-        latitude: 40.7128,
-        longitude: -74.0060,
+        latitude: 40.7282,
+        longitude: -73.7949,
         zoom: 9,
         width: "95vw",
         height: "60vh"
