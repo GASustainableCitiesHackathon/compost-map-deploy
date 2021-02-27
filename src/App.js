@@ -38,7 +38,6 @@ function App() {
             <header>
                 Header
             </header>
-            <ReactMap />
             <ReactMapGL
                 compostLocation={compostLocation}
                 setCompostLocation={setCompostLocation}
