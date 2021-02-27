@@ -16,7 +16,13 @@
         "react-scripts": "4.0.3",
         "uuid": "^8.3.2",
         "web-vitals": "^1.0.1",
-        "worker-loader": "^3.0.8"
+        "worker-loader": "^3.0.8",
+        "bootstrap": "^4.6.0",
+        "react-bootstrap": "^1.5.0",
+        "react-router-dom": "^4.3.1",
+        "sass": "^1.32.8",
+        "sass-loader": "^11.0.1",
+        "styled-components": "^5.2.1"
     },
     "scripts": {
         "start": "react-scripts start",
