@@ -2,10 +2,15 @@ import axios from 'axios';
 import GlobalStyles from "./components/GlobalStyles";
 import './App.css';
 import react, { useEffect, useState, useRef } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import ReactMap from './components/Maps/ReactMap';
 import { v4 as uuid } from "uuid";
 import ReactMapGL from './components/Maps/ReactMapGL';
+import About from "./components/About/About";
+import Footer from './components/Footer/Footer';
+import Faq from "./components/HomePage/Faq/Faq"
+import HomePageBody from "./components/HomePage/HomePageBody/HomePageBody"
+import Header from './components/Nav/Header';
 
 //TODO: import About from "./components/About/About";
 //TODO: import AuthenticatedRoute from "./components/AuthenticatedRoute/AuthenticatedRoute";
@@ -69,6 +74,19 @@ function App() {
     return (
         <>
             <GlobalStyles />
+            <nav>
+                <Header user={user} />
+                {/* {msgAlerts.map((msgAlert) => (
+                    <AutoDismissAlert
+                        key={msgAlert.id}
+                        heading={msgAlert.heading}
+                        variant={msgAlert.variant}
+                        message={msgAlert.message}
+                        id={msgAlert.id}
+                        deleteAlert={this.deleteAlert}
+                    />
+                ))} */}
+            </nav>
             <header>
                 {/* //! HEADER 
             <Header user={user} />
@@ -84,20 +102,30 @@ function App() {
                 ))} */}
             </header>
             <main>
-                <Route
-                    exact path="/"
-                >
-                    <div>
-                        <ReactMapGL
-                            compostLocation={compostLocation}
-                            setCompostLocation={setCompostLocation}
-                            mapData={mapData}
-                            viewport={viewport}
-                            setViewport={setViewport}
-                        />
-                    </div>
-                </Route>
+                <Switch>
+                    <Route
+                        exact path="/"
+                    >
+                        <>
+                            <ReactMapGL
+                                compostLocation={compostLocation}
+                                setCompostLocation={setCompostLocation}
+                                mapData={mapData}
+                                viewport={viewport}
+                                setViewport={setViewport}
+                            />
+                            <HomePageBody />
+                            <Faq />
+                        </>
+                    </Route>
+                    <Route exact path="/about">
+                        <About />
+                    </Route>
+                </Switch>
             </main>
+            <footer>
+                <Footer />
+            </footer>
         </>
     );
 }
