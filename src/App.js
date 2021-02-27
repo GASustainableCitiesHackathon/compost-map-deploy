@@ -11,6 +11,9 @@ import Footer from './components/Footer/Footer';
 import Faq from "./components/HomePage/Faq/Faq"
 import HomePageBody from "./components/HomePage/HomePageBody/HomePageBody"
 import Header from './components/Nav/Header';
+import BoroughSelector from './components/Maps/BoroughSelector';
+import SignUp from "./components/Credentials/SignUp/SignUp"
+import SignIn from "./components/Credentials/SignIn/SignIn"
 
 //TODO: import About from "./components/About/About";
 //TODO: import AuthenticatedRoute from "./components/AuthenticatedRoute/AuthenticatedRoute";
@@ -47,6 +50,13 @@ function App() {
         fetchData()
         console.log(mapData[0])
     }, [])
+
+    //TODO: BOROUGH
+    //TODO: useEffect(() => {
+    //TODO:     index(selectedBorough)
+    //TODO:         .then((res) => setData(res.data.locations))
+    //TODO:         .catch((err) => console.log(err));
+    //TODO: }, [selectedBorough]);
 
 
     //! FUNCTIONS
@@ -107,6 +117,11 @@ function App() {
                         exact path="/"
                     >
                         <>
+                            <BoroughSelector
+                                setSelectedBorough={setSelectedBorough}
+                                setViewport={setViewport}
+                                viewport={viewport}
+                            />
                             <ReactMapGL
                                 compostLocation={compostLocation}
                                 setCompostLocation={setCompostLocation}
@@ -118,9 +133,18 @@ function App() {
                             <Faq />
                         </>
                     </Route>
-                    <Route exact path="/about">
-                        <About />
+                    <Route exact path="/about"><About /></Route>
+                    <Route path="/sign-up">
+                        <SignUp
+                        // msgAlert={msgAlert} setUser={setUser}
+                        />
                     </Route>
+                    <Route path="/sign-in">
+                        <SignIn
+                        // msgAlert={msgAlert} setUser={setUser}
+                        />
+                    </Route>
+
                 </Switch>
             </main>
             <footer>
