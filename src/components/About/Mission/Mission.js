@@ -45,7 +45,7 @@ const HomePageWrapper = styled.div`
         }
     }
     .centerChild{
-        display: flex;
+        display: none;
         justify-content:center;
     }
   }

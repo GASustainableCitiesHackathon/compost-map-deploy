@@ -152,7 +152,8 @@ const ImageDiv = styled.div`
         display: flex;
         align-self: center;
         img{
-            width: 120px;
+            display:none;
+            width: 200px;
         }
     }
 `
