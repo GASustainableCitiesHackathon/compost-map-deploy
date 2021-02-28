@@ -1,54 +1,10 @@
-import "../../App.css";
-import React, { useEffect, useState } from "react";
-import ReactMapGL from "./ReactMapGL";
-import Faq from "../Faq";
-import BoroughSelector from "./BoroughSelector";
-import { index } from "../../api/location";
 import styled from "styled-components";
+import React from "react";
+import Faq from "./Faq";
 
-const IndexLocations = ({ user }) => {
-  const [borough, setBrorough] = useState("All");
-  const [pin, setPin] = useState(null);
-  const [mapData, setMapData] = useState([]);
-  const [viewport, setViewport] = useState({
-    latitude: 40.7282,
-    longitude: -73.7949,
-    zoom: 9,
-    width: "95vw",
-    height: "60vh",
-  });
-
-  useEffect(() => {
-    index(borough)
-      .then((res) => setMapData(res.data.locations))
-      .catch((err) => console.log(err));
-  }, [borough]);
-
-  useEffect(() => {
-    // Causes PopUp menu to close on KeyDown of escape button
-    const listener = (e) => {
-      if (e.key === "Escape") setPin(null);
-    };
-    window.addEventListener("keydown", listener);
-    // CleanUp Function to remove escape from always making Popup null
-    return () => window.removeEventListener("keydown", listener);
-  }, []);
-
+const OurStory = () => {
   return (
     <>
-      <BoroughSelector setBrorough={setBrorough} viewport={viewport} />
-      <ReactMapGL
-        pin={pin}
-        setPin={setPin}
-        mapData={mapData}
-        setMapData={setMapData}
-        viewport={viewport}
-        setViewport={setViewport}
-        borough={borough}
-        // setBrorough={setBrorough}
-        user={user}
-        alert={alert}
-      />
       <Story>
         <ImageBox>
           <img src="./img/children-planting.svg" alt="children planting" />
@@ -164,4 +120,4 @@ const LearnMore = styled.div`
   }
 `;
 
-export default IndexLocations;
+export default OurStory;
