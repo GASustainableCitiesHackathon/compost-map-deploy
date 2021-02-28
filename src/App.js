@@ -1,8 +1,10 @@
 import GlobalStyles from "./components/GlobalStyles";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Route, Switch } from "react-router-dom";
 import { index } from "./api/location";
-import ReactMapGL from "./components/Maps/ReactMapGL";
+import ReactMapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
+import styled from "styled-components";
+import Geocoder from "react-map-gl-geocoder";
 
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
@@ -14,6 +16,7 @@ import ChangePassword from "./components/Auth/ChangePassword";
 import SignOut from "./components/Auth/SignOut";
 import About from "./components/About/About";
 import Story from "./components/Story";
+import LocationCard from "./components/Maps/LocationCard";
 
 import AuthenticatedRoute from "./components/AuthenticatedRoute/AuthenticatedRoute";
 import AutoDismissAlert from "./components/AutoDismissAlert/AutoDismissAlert";
@@ -29,6 +32,11 @@ const App = () => {
   const [borough, setBrorough] = useState("All");
   const [pin, setPin] = useState(null);
   const [mapData, setMapData] = useState([]);
+  const [image, setImage] = useState(Math.floor(Math.random() * 9));
+  const [phone, setPhone] = useState([
+    Math.floor(Math.random() * 999),
+    Math.floor(Math.random() * 9999),
+  ]);
   const [viewport, setViewport] = useState({
     latitude: 40.7282,
     longitude: -73.7949,
@@ -36,22 +44,31 @@ const App = () => {
     width: "95vw",
     height: "60vh",
   });
+  const mapRef = useRef();
+
+  // Causes PopUp menu to close on KeyDown of escape button
+  const randomize = () => {
+    setImage(Math.floor(Math.random() * 9));
+    setPhone([
+      Math.floor(Math.random() * 999),
+      Math.floor(Math.random() * 9999),
+    ]);
+  };
+
+  useEffect(() => {
+    randomize();
+    const listener = (e) => {
+      if (e.key === "Escape") setPin(null);
+    };
+    window.addEventListener("keydown", listener);
+    return () => window.removeEventListener("keydown", listener);
+  }, []);
 
   useEffect(() => {
     index(borough)
       .then((res) => setMapData(res.data.locations))
       .catch((err) => console.log(err));
   }, [borough]);
-
-  // Causes PopUp menu to close on KeyDown of escape button
-  useEffect(() => {
-    const listener = (e) => {
-      if (e.key === "Escape") setPin(null);
-    };
-    window.addEventListener("keydown", listener);
-    // CleanUp Function to remove escape from always making Popup null
-    return () => window.removeEventListener("keydown", listener);
-  }, []);
 
   return (
     <>
@@ -66,17 +83,84 @@ const App = () => {
       ))}
       <main>
         <BoroughSelector setBrorough={setBrorough} viewport={viewport} />
-        <ReactMapGL
-          pin={pin}
-          setPin={setPin}
-          mapData={mapData}
-          setMapData={setMapData}
-          viewport={viewport}
-          setViewport={setViewport}
-          borough={borough}
-          user={user}
-          alert={alert}
-        />
+        <div
+          style={{ display: "flex", justifyContent: "center", padding: "10px" }}
+        >
+          {/* <Nav
+            selectedBorough={selectedBorough}
+            setViewport={setViewport}
+            viewport={viewport}
+          /> */}
+          <MapBox>
+            <ReactMapGL
+              ref={mapRef}
+              {...viewport}
+              mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+              onViewportChange={(viewport) => {
+                setViewport(viewport);
+              }}
+              mapStyle="mapbox://styles/taaseen71/ckleb8llf0zv817lk5y1asq7s"
+            >
+              {mapData.map((pin, i) => {
+                return (
+                  <Marker
+                    key={pin._id}
+                    latitude={pin.latitude}
+                    longitude={pin.longitude}
+                  >
+                    <div>
+                      <DroppedPin
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setPin(pin);
+                          randomize();
+                        }}
+                      >
+                        <DroppedPinImage
+                          src="./icons/map-icon.svg"
+                          alt="Marker Icon"
+                        />
+                      </DroppedPin>
+                    </div>
+                  </Marker>
+                );
+              })}
+              <Geocoder
+                position="top-left"
+                mapRef={mapRef}
+                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+              />
+              <GeolocateControl
+                style={{ right: 10, top: 10, zoom: 1 }}
+                positionOptions={{ enableHighAccuracy: true }}
+                trackUserLocation={true}
+                fitBoundsOptions={{ maxZoom: 12 }}
+                showAccuracyCircle={true}
+              />
+              {pin && (
+                <Popup
+                  user={user}
+                  closeOnClick={false}
+                  closeButton={true}
+                  onClick={() => {
+                    randomize();
+                  }}
+                  latitude={pin.latitude}
+                  longitude={pin.longitude}
+                  onClose={() => setPin(null)}
+                >
+                  <LocationCard
+                    user={user}
+                    alert={alert}
+                    pin={pin}
+                    phone={phone}
+                    image={image}
+                  />
+                </Popup>
+              )}
+            </ReactMapGL>
+          </MapBox>
+        </div>
         <Switch>
           <Route exact path="/" render={() => <Story />} />
           <Route path="/about" render={() => <About />} />
@@ -106,5 +190,29 @@ const App = () => {
     </>
   );
 };
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  /* margin-bottom: 5rem; */
+`;
+
+const MapBox = styled.div`
+  display: flex;
+  justify-content: center;
+  /* padding-top: 5vh;  */
+`;
+
+const DroppedPin = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+const DroppedPinImage = styled.img`
+  width: 20px;
+  height: 20px;
+`;
 
 export default App;

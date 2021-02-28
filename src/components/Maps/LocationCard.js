@@ -6,7 +6,7 @@ import { patchWeight } from "../../api/location.js";
 import styled from "styled-components";
 import "../../App.css";
 
-const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
+const LocationCard = ({ msgAlert, user, pin, phone, image }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -55,7 +55,7 @@ const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
             <SiteInfo>
               <img src="/icons/popup/phone.png" width="10px" alt="phone" />{" "}
               (718)
-              {randomNumber[0]}-{randomNumber[1]}
+              {phone[0]}-{phone[1]}
             </SiteInfo>
             <SiteInfo>
               <img src="./icons/globe.svg" width="10px" alt="globe" />{" "}
@@ -113,7 +113,7 @@ const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
         </Col>
         <Col xs={6}>
           <BusinessImage className="d-flex justify-content-end">
-            <img src={`randomImages/${randomImage}.png`} alt="" width="120px" />
+            <img src={`randomImages/${image}.png`} alt="" width="120px" />
           </BusinessImage>
         </Col>
       </Row>
