@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Container, CardDeck, Card } from 'react-bootstrap'
-import './WhyCompost.css'
+import './About.css'
 
 function WhyCompost() {
     return (

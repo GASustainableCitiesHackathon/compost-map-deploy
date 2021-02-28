@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Image, Container, Row, Col } from 'react-bootstrap'
-import './CompostBenefits.css'
+import './About.css'
 
 function CompostBenefits() {
     return (

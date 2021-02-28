@@ -1,0 +1,29 @@
+.mission {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 32 120 32 0
+}
+
+.benefits {
+	height: 70%;
+	margin-top: 160px;
+}
+
+.small {
+	width: 175px;
+	position: relative;
+	right: 100px;
+	top: 20px;
+}
+
+.team {
+	margin-left: -250px;
+	overflow: auto;
+	flex: auto;
+  }
+
+  .header {
+	color: #1E8E00;
+	font-size: 25px;
+}

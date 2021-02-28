@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function BoroughSelector({ setSelectedBorough }) {
+function BoroughSelector({ setBrorough }) {
     const handleClick = (e) => {
         e.preventDefault()
-        setSelectedBorough(e.target.value)
+        setBrorough(e.target.value)
     }
     return (
         <div>

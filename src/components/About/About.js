@@ -1,8 +1,8 @@
 import React from "react";
-import OurMission from "./Mission/Mission";
-import WhyCompost from "./WhyCompost/WhyCompost";
-import CompostBenefits from "./CompostBenefits/CompostBenefits";
-import OurTeam from "./OurTeam/OurTeam";
+import OurMission from "./Mission";
+import WhyCompost from "./WhyCompost";
+import CompostBenefits from "./CompostBenefits";
+import OurTeam from "./OurTeam";
 
 function About() {
     return (

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Container, Image, Row, Col } from "react-bootstrap";
-import "./OurTeam.css";
+import "./About.css";
 
 function OurTeam() {
     return (
