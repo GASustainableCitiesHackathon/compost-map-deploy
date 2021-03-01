@@ -62,10 +62,6 @@ const LocationCard = ({
               {randomNumber[0]}-{randomNumber[1]}
             </SiteInfo>
             <SiteInfo>
-              <img src="./icons/globe.svg" width="10px" alt="globe" />{" "}
-              <a href={location.website}>{location.website}</a>
-            </SiteInfo>
-            <SiteInfo>
               <img
                 src="./icons/popup/directions.png"
                 width="10px"
@@ -74,16 +70,12 @@ const LocationCard = ({
               Directions
             </SiteInfo>
             <SiteInfo>
-              <img src="/icons/globe.svg" width="10px" alt="globe" />{" "}
-              <a href={location.website}>{location.website}</a>
-            </SiteInfo>
-            <SiteInfo>
-              <img
-                src="/icons/popup/directions.png"
-                width="10px"
-                alt="directions"
-              />{" "}
-              Directions
+              {location.website && (
+                <>
+                  <img src="/icons/globe.svg" width="10px" alt="globe" />{" "}
+                  <a href={location.website}>{location.website}</a>
+                </>
+              )}
             </SiteInfo>
           </BusinessInfo>
         </Col>
