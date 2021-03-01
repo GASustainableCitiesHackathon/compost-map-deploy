@@ -79,6 +79,7 @@ const ImageDiv = styled.div`
         display: flex;
         align-self: center;
         img{
+            display: none;
             width: 200px;
         }
     }

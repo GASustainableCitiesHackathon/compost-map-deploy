@@ -34,15 +34,19 @@ function OurMission() {
 
 const HomePageWrapper = styled.div`
   display: flex;
-  width: "100vh";
+  /* width: 100%; */
   /* margin-bottom: 5rem; */
+  @media (max-width: 768px ){
   .col-md-4{
-    @media (max-width: 768px ){
         display: flex;
         align-self: center;
         img{
-            width: 200px;
+            width: 100px;
         }
+    }
+    .centerChild{
+        display: none;
+        justify-content:center;
     }
   }
 `;

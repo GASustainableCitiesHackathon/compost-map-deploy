@@ -57,7 +57,6 @@ function ReactMapGL({
 
     const mapRef = useRef()
 
-
     //?Lorem ipsum dolor, sit amet consectetur adipisicing elit.Nobis magni corporis asperiores
     //TODO: UNUSED FUNCTIONS Uncomment slowly 
     // useEffect(() => {
@@ -67,7 +66,7 @@ function ReactMapGL({
     // }, [selectedBorough]);
 
     //?Lorem ipsum dolor, sit amet consectetur adipisicing elit.Nobis magni corporis asperiores
-
+    console.log('the data is! :', mapData)
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
@@ -87,33 +86,19 @@ function ReactMapGL({
                 >
                     {mapData.map(location => {
                         return (
-                            <Marker
-                                key={uuidv4()}
-                                latitude={location.point.coordinates[1]}
-                                longitude={location.point.coordinates[0]}
-                            >
-                                <button className="marker-btn"
-                                    onClick={e => {
-                                        e.preventDefault();
-                                        setCompostLocation(location);
-                                    }}>
-                                    <img src="/Marker-Icon.svg" alt="Location" />
-                                </button>
+                                <Marker key={location._id} latitude={location.latitude} longitude={location.longitude} >
+                                <div>
+                                    <DroppedPin
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setCompostLocation(location);
+                                            getRandomInt()
+                                            getRandomImage()
+                                        }}>
+                                        <DroppedPinImage src="./icons/map-icon.svg" alt="Marker Icon" />
+                                    </DroppedPin>
+                                </div>
                             </Marker>
-                            // TODO:
-                            //     <Marker key={location._id} latitude={location.latitude} longitude={location.longitude} >
-                            //     <div>
-                            //         <DroppedPin
-                            //             onClick={(e) => {
-                            //                 e.preventDefault();
-                            //                 setLocation(location);
-                            //                 getRandomInt()
-                            //                 getRandomImage()
-                            //             }}>
-                            //             <DroppedPinImage src="./icons/map-icon.svg" alt="Marker Icon" />
-                            //         </DroppedPin>
-                            //     </div>
-                            // </Marker>
                         )
                     })}
                     <Geocoder position="top-left" mapRef={mapRef} mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN} />
