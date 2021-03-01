@@ -15,25 +15,14 @@ import BoroughSelector from "./components/Maps/BoroughSelector";
 import SignUp from "./components/Credentials/SignUp/SignUp";
 import SignIn from "./components/Credentials/SignIn/SignIn";
 import apiUrl from "./components/API/apiConfig";
-
-//TODO: import About from "./components/About/About";
-//TODO: import AuthenticatedRoute from "./components/AuthenticatedRoute/AuthenticatedRoute";
-//TODO: import AutoDismissAlert from "./components/AutoDismissAlert/AutoDismissAlert";
-//TODO: import Header from "./components/Header/Header";
-//TODO: import SignUp from "./components/SignUp/SignUp";
-//TODO: import SignIn from "./components/SignIn/SignIn";
-//TODO: import SignOut from "./components/SignOut/SignOut";
-//TODO: import ChangePassword from "./components/ChangePassword/ChangePassword";
-//TODO: import Faq from "./components/Faq/Faq";
-//TODO: import Footer from "./components/Footer/Footer";
+import AutoDismissAlert from "./components/AutoDismissAlert/Alert";
 
 function App() {
   //! USESTATE
 
   //TODO:
   const [user, setStateUser] = useState(null);
-  // const [msgAlerts, setMsgAlerts] = useState([])
-  // TODO: const [selectedBorough, setSelectedBorough] = useState("")
+  const [msgAlerts, setMsgAlerts] = useState([]);
   const [compostLocation, setCompostLocation] = useState(null);
   const [selectedBorough, setSelectedBorough] = useState("All");
   const [mapData, setMapData] = useState([]);
@@ -45,12 +34,6 @@ function App() {
     height: "60vh",
   });
 
-  //! USEEFFECTS
-  // useEffect(() => {
-  //     fetchData()
-  //     console.log(mapData[0])
-  // }, [])
-
   useEffect(() => {
     index(selectedBorough)
       .then((res) => setMapData(res.data.locations))
@@ -58,12 +41,6 @@ function App() {
   }, [selectedBorough]);
 
   //! FUNCTIONS
-  const fetchData = async () => {
-    const data = await axios(
-      "https://data.cityofnewyork.us/resource/if26-z6xq.json"
-    );
-    setMapData(data.data);
-  };
 
   const index = async (selectedBorough) => {
     return axios({
@@ -72,38 +49,18 @@ function App() {
     });
   };
 
-  //? BackEnd:
-  //TODO: const setUser = (user) => setStateUser({ user });
-  //TODO: const clearUser = () => setStateUser({ user: null });
-
-  //TODO: const deleteAlert = (id) => {
-  //TODO:         return { msgAlerts: msgAlerts.filter((msg) => msg.id !== id) };
-  //TODO: };
-
-  //TODO: const msgAlert = ({ heading, message, variant }) => {
-  //TODO:     const id = uuid();
-  //TODO:     return {setMsgAlerts([...msgAlerts, { heading, message, variant, id }],)};
-  //TODO:     };
-
   return (
     <>
       <GlobalStyles />
-      <nav>
-        <Header user={user} />
-      </nav>
       <header>
-        {/* //! HEADER 
-            <Header user={user} />
-                {msgAlerts.map((msgAlert) => (
-                    <AutoDismissAlert
-                        key={msgAlert.id}
-                        heading={msgAlert.heading}
-                        variant={msgAlert.variant}
-                        message={msgAlert.message}
-                        id={msgAlert.id}
-                        deleteAlert={this.deleteAlert}
-                    />
-                ))} */}
+        <Header user={user} />
+        {msgAlerts.map((msgAlert) => (
+          <AutoDismissAlert
+            key={msgAlert.id}
+            heading={msgAlert.heading}
+            variant={msgAlert.variant}
+          />
+        ))}
       </header>
       <main>
         <Switch>
