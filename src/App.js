@@ -14,6 +14,7 @@ import Header from './components/Nav/Header';
 import BoroughSelector from './components/Maps/BoroughSelector';
 import SignUp from "./components/Credentials/SignUp/SignUp"
 import SignIn from "./components/Credentials/SignIn/SignIn"
+import apiUrl from "./components/API/apiConfig"
 
 //TODO: import About from "./components/About/About";
 //TODO: import AuthenticatedRoute from "./components/AuthenticatedRoute/AuthenticatedRoute";
@@ -33,7 +34,7 @@ function App() {
     //TODO: 
     const [user, setStateUser] = useState(null);
     const [msgAlerts, setMsgAlerts] = useState([])
-    //TODO: const [selectedBorough, setSelectedBorough] = useState("")
+    // TODO: const [selectedBorough, setSelectedBorough] = useState("")
     const [compostLocation, setCompostLocation] = useState(null)
     const [selectedBorough, setSelectedBorough] = useState("All");
     const [mapData, setMapData] = useState([])
@@ -46,23 +47,31 @@ function App() {
     })
 
     //! USEEFFECTS
-    useEffect(() => {
-        fetchData()
-        console.log(mapData[0])
-    }, [])
+    // useEffect(() => {
+    //     fetchData()
+    //     console.log(mapData[0])
+    // }, [])
 
-    //TODO: BOROUGH
-    //TODO: useEffect(() => {
-    //TODO:     index(selectedBorough)
-    //TODO:         .then((res) => setData(res.data.locations))
-    //TODO:         .catch((err) => console.log(err));
-    //TODO: }, [selectedBorough]);
+    useEffect(() => {
+        index(selectedBorough)
+            .then((res) => setMapData(res.data.locations))
+            .catch((err) => console.log(err));
+    }, [selectedBorough])
+
 
 
     //! FUNCTIONS
     const fetchData = async () => {
         const data = await axios('https://data.cityofnewyork.us/resource/if26-z6xq.json');
         setMapData(data.data);
+    }
+
+    const index = async (borough) => {
+        return axios({
+            method: "GET",
+            // url: apiUrl + "/locations/" + borough,
+            url: apiUrl + "/locations/All",
+        })
     }
 
     //? BackEnd: 
@@ -86,16 +95,6 @@ function App() {
             <GlobalStyles />
             <nav>
                 <Header user={user} />
-                {/* {msgAlerts.map((msgAlert) => (
-                    <AutoDismissAlert
-                        key={msgAlert.id}
-                        heading={msgAlert.heading}
-                        variant={msgAlert.variant}
-                        message={msgAlert.message}
-                        id={msgAlert.id}
-                        deleteAlert={this.deleteAlert}
-                    />
-                ))} */}
             </nav>
             <header>
                 {/* //! HEADER 
