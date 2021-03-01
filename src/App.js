@@ -14,7 +14,7 @@ import Header from "./components/Nav/Header";
 import BoroughSelector from "./components/Maps/BoroughSelector";
 import SignUp from "./components/Credentials/SignUp/SignUp";
 import SignIn from "./components/Credentials/SignIn/SignIn";
-import apiUrl from "./components/api/apiConfig";
+import apiUrl from "./components/API/apiConfig";
 import AutoDismissAlert from "./components/AutoDismissAlert/Alert";
 
 //TODO: import About from "./components/About/About";
@@ -33,7 +33,6 @@ function App() {
   //TODO:
   const [user, setStateUser] = useState(null);
   const [msgAlerts, setMsgAlerts] = useState([]);
-  // TODO: const [selectedBorough, setSelectedBorough] = useState("")
   const [compostLocation, setCompostLocation] = useState(null);
   const [selectedBorough, setSelectedBorough] = useState("All");
   const [mapData, setMapData] = useState([]);
@@ -58,12 +57,6 @@ function App() {
   }, [selectedBorough]);
 
   //! FUNCTIONS
-  const fetchData = async () => {
-    const data = await axios(
-      "https://data.cityofnewyork.us/resource/if26-z6xq.json"
-    );
-    setMapData(data.data);
-  };
 
   const index = async (selectedBorough) => {
     return axios({
