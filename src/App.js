@@ -26,7 +26,7 @@ import AutoDismissAlert from "./components/AutoDismissAlert/Alert";
 //TODO: import ChangePassword from "./components/ChangePassword/ChangePassword";
 //TODO: import Faq from "./components/Faq/Faq";
 //TODO: import Footer from "./components/Footer/Footer";
-
+// small change
 function App() {
   //! USESTATE
 
