@@ -66,7 +66,7 @@ function ReactMapGL({
     // }, [selectedBorough]);
 
     //?Lorem ipsum dolor, sit amet consectetur adipisicing elit.Nobis magni corporis asperiores
-
+    console.log('the data is! :', mapData)
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
