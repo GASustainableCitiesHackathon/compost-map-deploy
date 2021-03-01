@@ -120,6 +120,7 @@ function App() {
                 mapData={mapData}
                 viewport={viewport}
                 setViewport={setViewport}
+                // user={user}
               />
               <HomePageBody />
               <Faq />
