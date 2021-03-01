@@ -5,6 +5,7 @@ import Geocoder from 'react-map-gl-geocoder'
 import { v4 as uuidv4 } from "uuid"
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css"
 import MapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
+import LocationCard from "./LocationCard"
 // import MarkerIcon from "./Marker-Icon.svg"
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -16,8 +17,8 @@ function ReactMapGL({
     setCompostLocation,
     mapData,
     viewport,
-    setViewport,
-    //TODO: user,
+    setViewport
+    // TODO: user,
     //TODO: msgAlert
 }) {
 
@@ -110,45 +111,45 @@ function ReactMapGL({
                         showAccuracyCircle={true}
                     />
                     {compostLocation && (
-                        <Popup
-                            latitude={compostLocation.point.coordinates[1]}
-                            longitude={compostLocation.point.coordinates[0]}
-                            // onClose={() => { setCompostLocation(null) }}
-                            // closeButton={false}
+                        // <Popup
+                        //     latitude={compostLocation.point.coordinates[1]}
+                        //     longitude={compostLocation.point.coordinates[0]}
+                        //     // onClose={() => { setCompostLocation(null) }}
+                        //     // closeButton={false}
+                        //     onClose={() => setCompostLocation(null)}
+                        // >
+                        //     <div>
+                        //         <h3>{compostLocation.food_scrap_drop_off_site}</h3>
+                        //         <p><span>Borough: </span>{compostLocation.borough}</p>
+                        //         <p><span>Hours From: </span>{compostLocation.hours_from}</p>
+                        //         <p><span>Hours To: </span>{compostLocation.hours_to}</p>
+                        //         <p><span>Latitude: </span>{compostLocation.latitude}</p>
+                        //         <p><span>Longitude: </span>{compostLocation.longitude}</p>
+                        //         <p><span>Location: </span>{compostLocation.location}</p>
+                        //         <p><span>Operation: </span>{compostLocation.operation_day}</p>
+                        //         <p><span>Open Months: </span>{compostLocation.open_months}</p>
+                        //         <p><span>Zip Code: </span>{compostLocation.zip_code}</p>
+                        //         {compostLocation.website && (
+                        //             <p><span>Website: </span><a href={compostLocation.website}>{compostLocation.website}</a></p>
+                        //         )}
+                        //     </div>
+                        // </Popup>
+                            <Popup
+                            // user={user}
+                            closeOnClick={false}
+                            closeButton={true}
+                            onClick={() => { getRandomInt() }}
+                            latitude={compostLocation.latitude}
+                            longitude={compostLocation.longitude}
                             onClose={() => setCompostLocation(null)}
                         >
-                            <div>
-                                <h3>{compostLocation.food_scrap_drop_off_site}</h3>
-                                <p><span>Borough: </span>{compostLocation.borough}</p>
-                                <p><span>Hours From: </span>{compostLocation.hours_from}</p>
-                                <p><span>Hours To: </span>{compostLocation.hours_to}</p>
-                                <p><span>Latitude: </span>{compostLocation.latitude}</p>
-                                <p><span>Longitude: </span>{compostLocation.longitude}</p>
-                                <p><span>Location: </span>{compostLocation.location}</p>
-                                <p><span>Operation: </span>{compostLocation.operation_day}</p>
-                                <p><span>Open Months: </span>{compostLocation.open_months}</p>
-                                <p><span>Zip Code: </span>{compostLocation.zip_code}</p>
-                                {compostLocation.website && (
-                                    <p><span>Website: </span><a href={compostLocation.website}>{compostLocation.website}</a></p>
-                                )}
-                            </div>
+                            <LocationCard
+                                // user={user}
+                                // msgAlert={msgAlert}
+                                location={compostLocation}
+                                randomNumber={randomNumber}
+                                randomImage={randomImage} />
                         </Popup>
-                        //     <Popup
-                        //     user={user}
-                        //     closeOnClick={false}
-                        //     closeButton={true}
-                        //     onClick={() => { getRandomInt() }}
-                        //     latitude={location.latitude}
-                        //     longitude={location.longitude}
-                        //     onClose={() => setLocation(null)}
-                        // >
-                        //     <LocationCard
-                        //         user={user}
-                        //         msgAlert={msgAlert}
-                        //         location={location}
-                        //         randomNumber={randomNumber}
-                        //         randomImage={randomImage} />
-                        // </Popup>
                     )}
                 </MapGL>
             </MapDiv>
