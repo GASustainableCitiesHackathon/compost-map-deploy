@@ -14,11 +14,11 @@ import Header from "./components/Nav/Header";
 import BoroughSelector from "./components/Maps/BoroughSelector";
 import SignUp from "./components/Credentials/SignUp/SignUp";
 import SignIn from "./components/Credentials/SignIn/SignIn";
-import apiUrl from "./components/API/apiConfig";
+import apiUrl from "./components/api/apiConfig";
+import AutoDismissAlert from "./components/AutoDismissAlert/Alert";
 
 //TODO: import About from "./components/About/About";
 //TODO: import AuthenticatedRoute from "./components/AuthenticatedRoute/AuthenticatedRoute";
-//TODO: import AutoDismissAlert from "./components/AutoDismissAlert/AutoDismissAlert";
 //TODO: import Header from "./components/Header/Header";
 //TODO: import SignUp from "./components/SignUp/SignUp";
 //TODO: import SignIn from "./components/SignIn/SignIn";
@@ -32,7 +32,7 @@ function App() {
 
   //TODO:
   const [user, setStateUser] = useState(null);
-  // const [msgAlerts, setMsgAlerts] = useState([])
+  const [msgAlerts, setMsgAlerts] = useState([]);
   // TODO: const [selectedBorough, setSelectedBorough] = useState("")
   const [compostLocation, setCompostLocation] = useState(null);
   const [selectedBorough, setSelectedBorough] = useState("All");
@@ -88,22 +88,15 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <nav>
-        <Header user={user} />
-      </nav>
       <header>
-        {/* //! HEADER 
-            <Header user={user} />
-                {msgAlerts.map((msgAlert) => (
-                    <AutoDismissAlert
-                        key={msgAlert.id}
-                        heading={msgAlert.heading}
-                        variant={msgAlert.variant}
-                        message={msgAlert.message}
-                        id={msgAlert.id}
-                        deleteAlert={this.deleteAlert}
-                    />
-                ))} */}
+        <Header user={user} />
+        {msgAlerts.map((msgAlert) => (
+          <AutoDismissAlert
+            key={msgAlert.id}
+            heading={msgAlert.heading}
+            variant={msgAlert.variant}
+          />
+        ))}
       </header>
       <main>
         <Switch>
