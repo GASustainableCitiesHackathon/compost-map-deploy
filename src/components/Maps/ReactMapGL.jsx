@@ -87,20 +87,20 @@ function ReactMapGL({
                 >
                     {mapData.map(location => {
                         return (
-                            <Marker
-                                key={uuidv4()}
-                                latitude={location.point.coordinates[1]}
-                                longitude={location.point.coordinates[0]}
-                            >
-                                <button className="marker-btn"
-                                    onClick={e => {
-                                        e.preventDefault();
-                                        setCompostLocation(location);
-                                    }}>
-                                    <img src="/Marker-Icon.svg" alt="Location" />
-                                </button>
-                            </Marker>
-                            // TODO:
+                            //     <Marker
+                            //         key={uuidv4()}
+                            //         latitude={location.point.coordinates[1]}
+                            //         longitude={location.point.coordinates[0]}
+                            //     >
+                            //         <button className="marker-btn"
+                            //             onClick={e => {
+                            //                 e.preventDefault();
+                            //                 setCompostLocation(location);
+                            //             }}>
+                            //             <img src="/Marker-Icon.svg" alt="Location" />
+                            //         </button>
+                            //     </Marker>
+                            //     // TODO:
                             //     <Marker key={location._id} latitude={location.latitude} longitude={location.longitude} >
                             //     <div>
                             //         <DroppedPin
@@ -114,6 +114,9 @@ function ReactMapGL({
                             //         </DroppedPin>
                             //     </div>
                             // </Marker>
+                            <Marker key={location._id} latitude={location.latitude} longitude={location.longitude}>
+
+                            </Marker>
                         )
                     })}
                     <Geocoder position="top-left" mapRef={mapRef} mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN} />
