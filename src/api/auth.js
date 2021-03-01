@@ -1,5 +1,6 @@
-import apiUrl from "./apiConfig";
+import apiUrl from "../apiConfig";
 import axios from "axios";
+
 export const signUp = (credentials) => {
   return axios({
     method: "POST",
@@ -13,6 +14,7 @@ export const signUp = (credentials) => {
     },
   });
 };
+
 export const signIn = (credentials) => {
   return axios({
     url: apiUrl + "/sign-in",
@@ -25,6 +27,7 @@ export const signIn = (credentials) => {
     },
   });
 };
+
 export const signOut = (user) => {
   return axios({
     url: apiUrl + "/sign-out",
@@ -34,6 +37,7 @@ export const signOut = (user) => {
     },
   });
 };
+
 export const changePassword = (passwords, user) => {
   return axios({
     url: apiUrl + "/change-password",

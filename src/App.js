@@ -1,30 +1,32 @@
-import axios from "axios";
-import GlobalStyles from "./components/GlobalStyles";
-import "./App.css";
-import react, { useEffect, useState, useRef } from "react";
-import { Route, Switch } from "react-router-dom";
 import ReactMap from "./components/Maps/ReactMap";
-import { v4 as uuid } from "uuid";
+import GlobalStyles from "./components/GlobalStyles";
+import React, { useState, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
+import { index } from "./api/location";
 import ReactMapGL from "./components/Maps/ReactMapGL";
+
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
+// import IndexLocations from "./components/IndexLocations/IndexLocations.js";
+
+import SignUp from "./components/Auth/SignUp";
+import SignIn from "./components/Auth/SignIn";
+import ChangePassword from "./components/Auth/ChangePassword";
+import SignOut from "./components/Auth/SignOut";
 import About from "./components/About/About";
-import Footer from "./components/Footer/Footer";
-import Faq from "./components/HomePage/Faq/Faq";
-import HomePageBody from "./components/HomePage/HomePageBody/HomePageBody";
-import Header from "./components/Nav/Header";
+import Story from "./components/Story";
+import AuthenticatedRoute from "./components/AuthenticatedRoute.js/AuthenticatedRoute";
+import AutoDismissAlert from "./components/AutoDismissAlert/AutoDismissAlert";
 import BoroughSelector from "./components/Maps/BoroughSelector";
-import SignUp from "./components/Credentials/SignUp/SignUp";
-import SignIn from "./components/Credentials/SignIn/SignIn";
-import apiUrl from "./components/API/apiConfig";
-import AutoDismissAlert from "./components/AutoDismissAlert/Alert";
+import "./App.css";
 
-function App() {
-  //! USESTATE
-
-  //TODO:
-  const [user, setStateUser] = useState(null);
-  const [msgAlerts, setMsgAlerts] = useState([]);
-  const [compostLocation, setCompostLocation] = useState(null);
-  const [selectedBorough, setSelectedBorough] = useState("All");
+const App = () => {
+  const [user, setUser] = useState(null);
+  const [alerts, setAlerts] = useState([]);
+  const alert = ({ heading, variant }) =>
+    setAlerts([...alerts, { heading, variant }]);
+  const [borough, setBrorough] = useState("All");
+  const [pin, setPin] = useState(null);
   const [mapData, setMapData] = useState([]);
   const [viewport, setViewport] = useState({
     latitude: 40.7282,
@@ -35,74 +37,73 @@ function App() {
   });
 
   useEffect(() => {
-    index(selectedBorough)
+    index(borough)
       .then((res) => setMapData(res.data.locations))
       .catch((err) => console.log(err));
-  }, [selectedBorough]);
+  }, [borough]);
 
-  //! FUNCTIONS
-
-  const index = async (selectedBorough) => {
-    return axios({
-      method: "GET",
-      url: apiUrl + "/locations/" + selectedBorough,
-    });
-  };
+  // Causes PopUp menu to close on KeyDown of escape button
+  useEffect(() => {
+    const listener = (e) => {
+      if (e.key === "Escape") setPin(null);
+    };
+    window.addEventListener("keydown", listener);
+    // CleanUp Function to remove escape from always making Popup null
+    return () => window.removeEventListener("keydown", listener);
+  }, []);
 
   return (
     <>
       <GlobalStyles />
-      <header>
-        <Header user={user} />
-        {msgAlerts.map((msgAlert) => (
-          <AutoDismissAlert
-            key={msgAlert.id}
-            heading={msgAlert.heading}
-            variant={msgAlert.variant}
-          />
-        ))}
-      </header>
+      <Header user={user} />
+      {alerts.map((alert, i) => (
+        <AutoDismissAlert
+          key={i}
+          heading={alert.heading}
+          variant={alert.variant}
+        />
+      ))}
       <main>
+        <BoroughSelector setBrorough={setBrorough} viewport={viewport} />
+        <ReactMapGL
+          pin={pin}
+          setPin={setPin}
+          mapData={mapData}
+          setMapData={setMapData}
+          viewport={viewport}
+          setViewport={setViewport}
+          borough={borough}
+          user={user}
+          alert={alert}
+        />
         <Switch>
-          <Route exact path="/">
-            <>
-              <BoroughSelector
-                setSelectedBorough={setSelectedBorough}
-                setViewport={setViewport}
-                viewport={viewport}
-              />
-              <ReactMapGL
-                compostLocation={compostLocation}
-                setCompostLocation={setCompostLocation}
-                mapData={mapData}
-                viewport={viewport}
-                setViewport={setViewport}
-                // user={user}
-              />
-              <HomePageBody />
-              <Faq />
-            </>
-          </Route>
-          <Route exact path="/about">
-            <About />
-          </Route>
-          <Route path="/sign-up">
-            <SignUp
-            // msgAlert={msgAlert} setUser={setUser}
-            />
-          </Route>
-          <Route path="/sign-in">
-            <SignIn
-            // msgAlert={msgAlert} setUser={setUser}
-            />
-          </Route>
+          <Route exact path="/" render={() => <Story />} />
+          <Route path="/about" render={() => <About />} />
+          <Route
+            path="/sign-up"
+            render={() => <SignUp alert={alert} setUser={setUser} />}
+          />
+          <Route
+            path="/sign-in"
+            render={() => <SignIn alert={alert} setUser={setUser} />}
+          />
+          <AuthenticatedRoute
+            user={user}
+            path="/sign-out"
+            render={() => (
+              <SignOut alert={alert} setUser={setUser} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            user={user}
+            path="/change-password"
+            render={() => <ChangePassword alert={alert} user={user} />}
+          />
         </Switch>
       </main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </>
   );
-}
+};
 
 export default App;

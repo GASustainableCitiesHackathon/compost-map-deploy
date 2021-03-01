@@ -1,39 +1,35 @@
-import react, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { index } from "../../api/location"
 import styled from "styled-components";
 import Spinner from "react-bootstrap/Spinner";
 import Geocoder from 'react-map-gl-geocoder'
-import { v4 as uuidv4 } from "uuid"
+import LocationCard from './LocationCard'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css"
 import MapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
-import LocationCard from "./LocationCard"
 // import MarkerIcon from "./Marker-Icon.svg"
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 MapGL.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
-
-function ReactMapGL({
-    compostLocation,
-    setCompostLocation,
+const ReactMapGL = ({
+    pin,
+    setPin,
     mapData,
+    setMapData,
+    borough,
     viewport,
-    setViewport
-    // TODO: user,
-    //TODO: msgAlert
-}) {
-
-    //! STATES
+    setViewport,
+    user,
+    msgAlert
+}) => {
 
     const [randomNumber, setRandomNumber] = useState([])
     const [randomImage, setRandomImage] = useState("")
 
-
-    //! EFFECTS
-
     useEffect(() => {
         const listener = e => {
             if (e.key === "Escape") {
-                setCompostLocation(null)
+                setPin(null)
             }
         }
         window.addEventListener("keydown", listener)
@@ -43,8 +39,6 @@ function ReactMapGL({
         getRandomInt();
         getRandomImage();
     }, [])
-
-    //! FUNCTIONS
 
     const getRandomInt = () => {
         const num1 = Math.floor(Math.random() * 999)
@@ -58,26 +52,20 @@ function ReactMapGL({
 
     const mapRef = useRef()
 
-    //?Lorem ipsum dolor, sit amet consectetur adipisicing elit.Nobis magni corporis asperiores
-    //TODO: UNUSED FUNCTIONS Uncomment slowly 
-    // useEffect(() => {
-    //     index(selectedBorough)
-    //         .then((res) => setData(res.data.locations))
-    //         .catch((err) => console.log(err));
-    // }, [selectedBorough]);
-
-    //?Lorem ipsum dolor, sit amet consectetur adipisicing elit.Nobis magni corporis asperiores
-    console.log('the data is! :', mapData)
+    useEffect(() => {
+        index(borough)
+            .then((res) => setMapData(res.data.locations))
+            .catch((err) => console.log(err));
+    }, [borough]);
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-            {/* //TODO: NAVIGATION
-                <Nav
-                setSelectedBorough={setSelectedBorough}
+                {/* <Nav
+                selectedBorough={selectedBorough}
                 setViewport={setViewport}
                 viewport={viewport}
             /> */}
-            <MapDiv>
+            <MapBox>
                 <MapGL
                     ref={mapRef}
                     {...viewport}
@@ -85,14 +73,14 @@ function ReactMapGL({
                     onViewportChange={(viewport) => { setViewport(viewport) }}
                     mapStyle="mapbox://styles/taaseen71/ckleb8llf0zv817lk5y1asq7s"
                 >
-                    {mapData.map(location => {
+                    {mapData.map((pin, i) => {
                         return (
-                                <Marker key={location._id} latitude={location.latitude} longitude={location.longitude} >
+                            <Marker key={pin._id} latitude={pin.latitude} longitude={pin.longitude} >
                                 <div>
                                     <DroppedPin
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            setCompostLocation(location);
+                                            setPin(pin);
                                             getRandomInt()
                                             getRandomImage()
                                         }}>
@@ -110,49 +98,26 @@ function ReactMapGL({
                         fitBoundsOptions={{ maxZoom: 12 }}
                         showAccuracyCircle={true}
                     />
-                    {compostLocation && (
-                        // <Popup
-                        //     latitude={compostLocation.point.coordinates[1]}
-                        //     longitude={compostLocation.point.coordinates[0]}
-                        //     // onClose={() => { setCompostLocation(null) }}
-                        //     // closeButton={false}
-                        //     onClose={() => setCompostLocation(null)}
-                        // >
-                        //     <div>
-                        //         <h3>{compostLocation.food_scrap_drop_off_site}</h3>
-                        //         <p><span>Borough: </span>{compostLocation.borough}</p>
-                        //         <p><span>Hours From: </span>{compostLocation.hours_from}</p>
-                        //         <p><span>Hours To: </span>{compostLocation.hours_to}</p>
-                        //         <p><span>Latitude: </span>{compostLocation.latitude}</p>
-                        //         <p><span>Longitude: </span>{compostLocation.longitude}</p>
-                        //         <p><span>Location: </span>{compostLocation.location}</p>
-                        //         <p><span>Operation: </span>{compostLocation.operation_day}</p>
-                        //         <p><span>Open Months: </span>{compostLocation.open_months}</p>
-                        //         <p><span>Zip Code: </span>{compostLocation.zip_code}</p>
-                        //         {compostLocation.website && (
-                        //             <p><span>Website: </span><a href={compostLocation.website}>{compostLocation.website}</a></p>
-                        //         )}
-                        //     </div>
-                        // </Popup>
-                            <Popup
-                            // user={user}
-                            closeOnClick={false}
-                            closeButton={true}
-                            onClick={() => { getRandomInt() }}
-                            latitude={compostLocation.latitude}
-                            longitude={compostLocation.longitude}
-                            onClose={() => setCompostLocation(null)}
-                        >
-                            <LocationCard
-                                // user={user}
-                                // msgAlert={msgAlert}
-                                location={compostLocation}
-                                randomNumber={randomNumber}
-                                randomImage={randomImage} />
-                        </Popup>
-                    )}
+                    	{pin && (
+					<Popup
+						user={user}
+						closeOnClick={false}
+						closeButton={true}
+						onClick={() => { getRandomInt() }}
+						latitude={pin.latitude}
+						longitude={pin.longitude}
+						onClose={() => setPin(null)}
+					>
+						<LocationCard
+							user={user}
+							alert={alert}
+							pin={pin}
+							randomNumber={randomNumber}
+							randomImage={randomImage} />
+					</Popup>
+				)}
                 </MapGL>
-            </MapDiv>
+            </MapBox>
         </div>
     )
 }
@@ -165,7 +130,7 @@ const LoadingWrapper = styled.div`
   /* margin-bottom: 5rem; */
 `;
 
-const MapDiv = styled.div`
+const MapBox = styled.div`
     display: flex;
     justify-content: center;
     /* padding-top: 5vh;  */
