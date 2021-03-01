@@ -17,16 +17,6 @@ import SignIn from "./components/Credentials/SignIn/SignIn";
 import apiUrl from "./components/API/apiConfig";
 import AutoDismissAlert from "./components/AutoDismissAlert/Alert";
 
-//TODO: import About from "./components/About/About";
-//TODO: import AuthenticatedRoute from "./components/AuthenticatedRoute/AuthenticatedRoute";
-//TODO: import Header from "./components/Header/Header";
-//TODO: import SignUp from "./components/SignUp/SignUp";
-//TODO: import SignIn from "./components/SignIn/SignIn";
-//TODO: import SignOut from "./components/SignOut/SignOut";
-//TODO: import ChangePassword from "./components/ChangePassword/ChangePassword";
-//TODO: import Faq from "./components/Faq/Faq";
-//TODO: import Footer from "./components/Footer/Footer";
-// small change
 function App() {
   //! USESTATE
 
@@ -44,12 +34,6 @@ function App() {
     height: "60vh",
   });
 
-  //! USEEFFECTS
-  // useEffect(() => {
-  //     fetchData()
-  //     console.log(mapData[0])
-  // }, [])
-
   useEffect(() => {
     index(selectedBorough)
       .then((res) => setMapData(res.data.locations))
@@ -64,19 +48,6 @@ function App() {
       url: apiUrl + "/locations/" + selectedBorough,
     });
   };
-
-  //? BackEnd:
-  //TODO: const setUser = (user) => setStateUser({ user });
-  //TODO: const clearUser = () => setStateUser({ user: null });
-
-  //TODO: const deleteAlert = (id) => {
-  //TODO:         return { msgAlerts: msgAlerts.filter((msg) => msg.id !== id) };
-  //TODO: };
-
-  //TODO: const msgAlert = ({ heading, message, variant }) => {
-  //TODO:     const id = uuid();
-  //TODO:     return {setMsgAlerts([...msgAlerts, { heading, message, variant, id }],)};
-  //TODO:     };
 
   return (
     <>
