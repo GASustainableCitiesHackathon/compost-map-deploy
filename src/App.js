@@ -7,8 +7,7 @@ import ReactMapGL from "./components/Maps/ReactMapGL";
 
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
-// import IndexLocations from "./components/IndexLocations/IndexLocations.js";
-
+import IndexLocations from "./components/Maps/IndexLocations";
 import SignUp from "./components/Auth/SignUp";
 import SignIn from "./components/Auth/SignIn";
 import ChangePassword from "./components/Auth/ChangePassword";
@@ -64,7 +63,8 @@ const App = () => {
         />
       ))}
       <main>
-        <BoroughSelector setBrorough={setBrorough} viewport={viewport} />
+        <IndexLocations user={user} alert={alert} />
+        {/* <BoroughSelector setBrorough={setBrorough} viewport={viewport} />
         <ReactMapGL
           pin={pin}
           setPin={setPin}
@@ -75,10 +75,8 @@ const App = () => {
           borough={borough}
           user={user}
           alert={alert}
-        />
+        /> */}
         <Switch>
-          <Route exact path="/" render={() => <Story />} />
-          <Route path="/about" render={() => <About />} />
           <Route
             path="/sign-up"
             render={() => <SignUp alert={alert} setUser={setUser} />}
@@ -99,6 +97,8 @@ const App = () => {
             path="/change-password"
             render={() => <ChangePassword alert={alert} user={user} />}
           />
+          <Route exact path="/" render={() => <Story />} />
+          <Route path="/about" render={() => <About />} />
         </Switch>
       </main>
       <Footer />
