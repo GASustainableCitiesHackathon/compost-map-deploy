@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { index } from "../../api/location";
 import ReactMapGL from "./ReactMapGL";
 import BoroughSelector from "./BoroughSelector";
+import Story from "../Story";
 
 const IndexLocations = ({ user, alert }) => {
-  const [borough, setBrorough] = useState("All");
+  const [borough, setBrorough] = useState("Manhattan");
   const [pin, setPin] = useState(null);
   const [mapData, setMapData] = useState([]);
   const [viewport, setViewport] = useState({
@@ -46,6 +47,7 @@ const IndexLocations = ({ user, alert }) => {
         user={user}
         alert={alert}
       />
+      <Story />
     </>
   );
 };

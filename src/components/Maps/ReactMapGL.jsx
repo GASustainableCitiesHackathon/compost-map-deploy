@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Spinner from "react-bootstrap/Spinner";
 import Geocoder from 'react-map-gl-geocoder'
 import LocationCard from './LocationCard'
+import LocationCardTwo from './LocationCardTwo'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css"
 import MapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
 // import MarkerIcon from "./Marker-Icon.svg"
@@ -20,7 +21,7 @@ const ReactMapGL = ({
     viewport,
     setViewport,
     user,
-    msgAlert
+    alert
 }) => {
 
     const [randomNumber, setRandomNumber] = useState([])
@@ -60,11 +61,7 @@ const ReactMapGL = ({
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-                {/* <Nav
-                selectedBorough={selectedBorough}
-                setViewport={setViewport}
-                viewport={viewport}
-            /> */}
+        {mapData.length > 0 ? (
             <MapBox>
                 <MapGL
                     ref={mapRef}
@@ -73,7 +70,7 @@ const ReactMapGL = ({
                     onViewportChange={(viewport) => { setViewport(viewport) }}
                     mapStyle="mapbox://styles/taaseen71/ckleb8llf0zv817lk5y1asq7s"
                 >
-                    {mapData.map((pin, i) => {
+                    {mapData.map((pin) => {
                         return (
                             <Marker key={pin._id} latitude={pin.latitude} longitude={pin.longitude} >
                                 <div>
@@ -95,7 +92,7 @@ const ReactMapGL = ({
                         style={{ right: 10, top: 10, zoom: 1 }}
                         positionOptions={{ enableHighAccuracy: true }}
                         trackUserLocation={true}
-                        fitBoundsOptions={{ maxZoom: 12 }}
+                        fitBoundsOptions={{ maxZoom: 10 }}
                         showAccuracyCircle={true}
                     />
                     	{pin && (
@@ -107,17 +104,28 @@ const ReactMapGL = ({
 						latitude={pin.latitude}
 						longitude={pin.longitude}
 						onClose={() => setPin(null)}
-					>
-						<LocationCard
-							user={user}
-							alert={alert}
-							pin={pin}
-							randomNumber={randomNumber}
-							randomImage={randomImage} />
-					</Popup>
-				)}
+                        alert={alert}
+                        >
+                            <LocationCardTwo
+                            pin={pin}
+                            user={user}
+                        randomImage={randomImage} />
+                        </Popup>
+                        )}
+                        
                 </MapGL>
+                    {/* <LocationCard
+                        user={user}
+                        alert={alert}
+                        pin={pin}
+                        randomNumber={randomNumber}
+                        randomImage={randomImage} /> */}
             </MapBox>
+             ) : (
+        <LoadingWrapper>
+          <Spinner className="center" animation="grow" variant="success" />
+        </LoadingWrapper>
+      )}
         </div>
     )
 }

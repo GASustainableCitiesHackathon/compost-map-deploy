@@ -5,7 +5,7 @@ import { patchWeight } from "../../api/location.js";
 import styled from "styled-components";
 import "../../App.css";
 
-const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
+const LocationCard = ({ alert, user, pin, randomNumber, randomImage }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -16,14 +16,14 @@ const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
     console.log("loc, weight, user", pin, weight, user);
     patchWeight(pin, weight, user)
       .then(() =>
-        msgAlert({
+        alert({
           heading: "Thank you for your compost!",
           variant: "success",
         })
       )
       .then(() => handleClose())
       .catch((error) => {
-        msgAlert({
+        alert({
           heading: "Sign In Failed with error: " + error.message,
           variant: "danger",
         });
@@ -40,7 +40,7 @@ const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
   totalWeight();
 
   return (
-    <Container>
+    <>
       <Row>
         <Col>
           <BusinessInfo>
@@ -68,23 +68,11 @@ const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
               />{" "}
               Directions
             </SiteInfo>
-            <SiteInfo>
-              <img src="/icons/globe.svg" width="10px" alt="globe" />{" "}
-              <a href={pin.website}>{pin.website}</a>
-            </SiteInfo>
-            <SiteInfo>
-              <img
-                src="/icons/popup/directions.png"
-                width="10px"
-                alt="directions"
-              />{" "}
-              Directions
-            </SiteInfo>
           </BusinessInfo>
         </Col>
       </Row>
       <Row>
-        <Col xs={6}>
+        <Col xs={12} md={6}>
           <SiteInfo>Total Compost: {totalWeight()} lbs</SiteInfo>
           <SiteInfo>Total Dropoffs: {pin.weights.length} lbs</SiteInfo>
           <SiteInfo>
@@ -110,8 +98,8 @@ const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
             </div>
           ) : null}
         </Col>
-        <Col xs={6}>
-          <BusinessImage className="d-flex justify-content-end">
+        <Col xs={12} md={6}>
+          <BusinessImage className="d-flex">
             <img src={`randomImages/${randomImage}.png`} alt="" width="120px" />
           </BusinessImage>
         </Col>
@@ -144,7 +132,7 @@ const LocationCard = ({ msgAlert, user, pin, randomNumber, randomImage }) => {
           </Button>
         </Form>
       </Modal>
-    </Container>
+    </>
   );
 };
 
@@ -170,7 +158,7 @@ const SiteInfo = styled.p`
 `;
 const AdditionalInfo = styled.p`
   font-size: 12px;
-  width: 30vh;
+  width: 30vw;
 `;
 
 const ModalSubheading = styled.p`

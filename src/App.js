@@ -1,7 +1,6 @@
 import GlobalStyles from "./components/GlobalStyles";
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import IndexLocations from "./components/Maps/IndexLocations";
@@ -10,7 +9,6 @@ import SignIn from "./components/Auth/SignIn";
 import ChangePassword from "./components/Auth/ChangePassword";
 import SignOut from "./components/Auth/SignOut";
 import About from "./components/About/About";
-import Story from "./components/Story";
 import AuthenticatedRoute from "./components/AuthenticatedRoute.js/AuthenticatedRoute";
 import AutoDismissAlert from "./components/AutoDismissAlert/AutoDismissAlert";
 import "./App.css";
@@ -33,7 +31,11 @@ const App = () => {
         />
       ))}
       <main>
-        <IndexLocations user={user} alert={alert} />
+        <Route
+          exact
+          path="/"
+          render={() => <IndexLocations user={user} alert={alert} />}
+        />
         <Switch>
           <Route
             path="/sign-up"
@@ -55,7 +57,6 @@ const App = () => {
             path="/change-password"
             render={() => <ChangePassword alert={alert} user={user} />}
           />
-          <Route exact path="/" render={() => <Story />} />
           <Route path="/about" render={() => <About />} />
         </Switch>
       </main>
