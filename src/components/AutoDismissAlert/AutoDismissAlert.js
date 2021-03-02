@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
-import "./Alert.scss";
+import "./AutoDismissAlert.scss";
 
 const AutoDismissAlert = ({ variant, heading }) => {
   const [show, setShow] = useState();

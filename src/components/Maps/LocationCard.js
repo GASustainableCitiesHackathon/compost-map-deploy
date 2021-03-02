@@ -1,43 +1,38 @@
 import React, { useState } from "react";
 import { Card, Form, Button, Modal } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
-// import { patchWeight } from "../../api/location.js";
+import { patchWeight } from "../../api/location.js";
 import styled from "styled-components";
+import "../../App.css";
 
-const LocationCard = ({
-  //   msgAlert,
-  //   user,
-  location,
-  randomNumber,
-  randomImage,
-}) => {
+const LocationCard = ({ alert, user, pin, randomNumber, randomImage }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [weight, setWeight] = useState("");
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     console.log("loc, weight, user", location, weight, user);
-  //     patchWeight(location, weight, user)
-  //       .then(() =>
-  //         msgAlert({
-  //           heading: "Thank you for your compost!",
-  //           variant: "success",
-  //         })
-  //       )
-  //       .then(() => handleClose())
-  //       .catch((error) => {
-  //         msgAlert({
-  //           heading: "Sign In Failed with error: " + error.message,
-  //           variant: "danger",
-  //         });
-  //       });
-  //   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("loc, weight, user", pin, weight, user);
+    patchWeight(pin, weight, user)
+      .then(() =>
+        alert({
+          heading: "Thank you for your compost!",
+          variant: "success",
+        })
+      )
+      .then(() => handleClose())
+      .catch((error) => {
+        alert({
+          heading: "Sign In Failed with error: " + error.message,
+          variant: "danger",
+        });
+      });
+  };
 
   const totalWeight = () => {
     let total = 0;
-    location.weights.map((weight) => {
+    pin.weights.map((weight) => {
       total += weight.weightLbs;
     });
     return total;
@@ -45,21 +40,25 @@ const LocationCard = ({
   totalWeight();
 
   return (
-    <Container>
+    <>
       <Row>
         <Col>
           <BusinessInfo>
             <Card.Title className="title">
-              {location.food_scrap_drop_off_site}
+              {pin.food_scrap_drop_off_site}
             </Card.Title>
-            <FoodScrapDropOffSite>{location.location}</FoodScrapDropOffSite>
+            <FoodScrapDropOffSite>{pin.pin}</FoodScrapDropOffSite>
             <FoodScrapDropOffSite>
-              {location.borough}, NY {location.zip_code}
+              {pin.borough}, NY {pin.zip_code}
             </FoodScrapDropOffSite>
             <SiteInfo>
               <img src="/icons/popup/phone.png" width="10px" alt="phone" />{" "}
               (718)
               {randomNumber[0]}-{randomNumber[1]}
+            </SiteInfo>
+            <SiteInfo>
+              <img src="./icons/globe.svg" width="10px" alt="globe" />{" "}
+              <a href={pin.website}>{pin.website}</a>
             </SiteInfo>
             <SiteInfo>
               <img
@@ -69,33 +68,25 @@ const LocationCard = ({
               />{" "}
               Directions
             </SiteInfo>
-            <SiteInfo>
-              {location.website && (
-                <>
-                  <img src="/icons/globe.svg" width="10px" alt="globe" />{" "}
-                  <a href={location.website}>{location.website}</a>
-                </>
-              )}
-            </SiteInfo>
           </BusinessInfo>
         </Col>
       </Row>
       <Row>
-        <Col xs={6}>
+        <Col xs={12} md={6}>
           <SiteInfo>Total Compost: {totalWeight()} lbs</SiteInfo>
-          <SiteInfo>Total Dropoffs: {location.weights.length} lbs</SiteInfo>
+          <SiteInfo>Total Dropoffs: {pin.weights.length} lbs</SiteInfo>
           <SiteInfo>
             <img src="/icons/popup/calendar.png" width="10px" alt="calendar" />
-            Hours: {location.hours_from} - {location.hours_to}
+            Hours: {pin.hours_from} - {pin.hours_to}
           </SiteInfo>
           <AdditionalInfo>
             <span>Operation Day: </span>
-            {location.operation_day}
+            {pin.operation_day}
             <br />
             <span>Open Months: </span>
-            {location.open_months}
+            {pin.open_months}
           </AdditionalInfo>
-          {/* {user ? (
+          {user ? (
             <div className="d-flex">
               <Button
                 className="mr-auto p-2"
@@ -105,10 +96,10 @@ const LocationCard = ({
                 Calculate Your Compost
               </Button>
             </div>
-          ) : null} */}
+          ) : null}
         </Col>
-        <Col xs={6}>
-          <BusinessImage className="d-flex justify-content-end">
+        <Col xs={12} md={6}>
+          <BusinessImage className="d-flex">
             <img src={`randomImages/${randomImage}.png`} alt="" width="120px" />
           </BusinessImage>
         </Col>
@@ -119,7 +110,7 @@ const LocationCard = ({
           <ModalSubheading>calculate your compost!</ModalSubheading>
         </Modal.Header>
         <Modal.Body className="mx-auto">Enter pounds of compost</Modal.Body>
-        {/* <Form autoComplete="off" onSubmit={handleSubmit}>
+        <Form autoComplete="off" onSubmit={handleSubmit}>
           <Form.Group controlId="weight">
             <Form.Control
               required
@@ -139,9 +130,9 @@ const LocationCard = ({
           >
             Submit
           </Button>
-        </Form> */}
+        </Form>
       </Modal>
-    </Container>
+    </>
   );
 };
 
@@ -167,7 +158,7 @@ const SiteInfo = styled.p`
 `;
 const AdditionalInfo = styled.p`
   font-size: 12px;
-  width: 30vh;
+  width: 30vw;
 `;
 
 const ModalSubheading = styled.p`
