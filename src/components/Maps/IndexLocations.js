@@ -37,13 +37,13 @@ const IndexLocations = ({ user, alert }) => {
     <>
       <BoroughSelector setBrorough={setBrorough} viewport={viewport} />
       <ReactMapGL
+        borough={borough}
         pin={pin}
         setPin={setPin}
         mapData={mapData}
         setMapData={setMapData}
         viewport={viewport}
         setViewport={setViewport}
-        borough={borough}
         user={user}
         alert={alert}
       />

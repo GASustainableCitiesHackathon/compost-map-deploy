@@ -1,21 +1,23 @@
-import React, { useState } from "react";
-import { patchWeight } from "../../api/location.js";
+import React, { useState, useEffect } from "react";
+import { patchWeight } from "../../api/location";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import "../../App.css";
 
-const LocationCardTwo = ({ pin, randomImage, user }) => {
+const LocationCardTwo = ({ alert, pin, randomImage, user }) => {
   const [weight, setWeight] = useState("");
+  const [total, setTotal] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     patchWeight(pin, weight, user)
-      .then(() =>
+      .then(() => {
+        setTotal(total + Number(weight));
         alert({
           heading: "Thank you for your compost!",
           variant: "success",
-        })
-      )
+        });
+      })
       .catch((error) => {
         alert({
           heading: "Sign In Failed with error: " + error.message,
@@ -23,15 +25,14 @@ const LocationCardTwo = ({ pin, randomImage, user }) => {
         });
       });
   };
+  console.log(pin.weights);
 
-  const totalWeight = () => {
-    let total = 0;
-    pin.weights.map((weight) => {
-      total += weight.weightLbs;
-    });
-    return total;
-  };
-  totalWeight();
+  useEffect(() => {
+    let a = [0];
+    pin.weights.map((weight) => a.push(weight.weightLbs));
+    const num = a.reduce((a, b) => a + b);
+    setTotal(num);
+  }, []);
 
   const location = pin.location.substr(0, pin.location.length - 5);
   return (
@@ -59,12 +60,12 @@ const LocationCardTwo = ({ pin, randomImage, user }) => {
               />{" "}
               {pin.operation_day}
             </Info>
-            <Info>Total Compost: {totalWeight()} lbs</Info>
+            <Info>Total Compost: {total} lbs</Info>
           </Infoblock>
         </div>
         {user ? (
           <div className="d-flex">
-            <Form autoComplete="off" onSubmit={handleSubmit}>
+            <Form autoComplete="off">
               <Form.Control
                 required
                 type="text"
@@ -74,7 +75,12 @@ const LocationCardTwo = ({ pin, randomImage, user }) => {
                 onChange={(e) => setWeight(e.target.value)}
               />
             </Form>
-            <Button variant="outline-success" size="sm" type="submit">
+            <Button
+              variant="outline-success"
+              size="sm"
+              type="submit"
+              onClick={handleSubmit}
+            >
               <img
                 src="/icons/popup/calculator.png"
                 width="20px"

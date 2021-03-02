@@ -24,10 +24,14 @@ const ReactMapGL = ({
     alert
 }) => {
 
-    const [randomNumber, setRandomNumber] = useState([])
+    const mapRef = useRef()
     const [randomImage, setRandomImage] = useState("")
+    const getRandomImage = () => {
+        return setRandomImage(Math.floor(Math.random() * 9))
+    }
 
     useEffect(() => {
+        getRandomImage()
         const listener = e => {
             if (e.key === "Escape") {
                 setPin(null)
@@ -36,22 +40,12 @@ const ReactMapGL = ({
         window.addEventListener("keydown", listener)
     }, [])
 
-    useEffect(() => {
-        getRandomInt();
-        getRandomImage();
-    }, [])
-
-    const getRandomInt = () => {
-        const num1 = Math.floor(Math.random() * 999)
-        const num2 = Math.floor(Math.random() * 9999)
-        return setRandomNumber([num1, num2])
+    const handleClose = () => {
+        setPin(null)
+        index(borough)
+            .then((res) => setMapData(res.data.locations))
+            .catch((err) => console.log(err));
     }
-
-    const getRandomImage = () => {
-        return setRandomImage(Math.floor(Math.random() * 9))
-    }
-
-    const mapRef = useRef()
 
     useEffect(() => {
         index(borough)
@@ -72,13 +66,12 @@ const ReactMapGL = ({
                 >
                     {mapData.map((pin) => {
                         return (
-                            <Marker key={pin._id} latitude={pin.latitude} longitude={pin.longitude} >
+                            <Marker classname="pin" key={pin._id} latitude={pin.latitude} longitude={pin.longitude} >
                                 <div>
                                     <DroppedPin
                                         onClick={(e) => {
                                             e.preventDefault();
                                             setPin(pin);
-                                            getRandomInt()
                                             getRandomImage()
                                         }}>
                                         <DroppedPinImage src="./icons/map-icon.svg" alt="Marker Icon" />
@@ -100,32 +93,25 @@ const ReactMapGL = ({
 						user={user}
 						closeOnClick={false}
 						closeButton={true}
-						onClick={() => { getRandomInt() }}
 						latitude={pin.latitude}
 						longitude={pin.longitude}
-						onClose={() => setPin(null)}
+						onClose={() => handleClose()}
                         alert={alert}
                         >
-                            <LocationCardTwo
+                        <LocationCardTwo
                             pin={pin}
                             user={user}
-                        randomImage={randomImage} />
-                        </Popup>
-                        )}
-                        
+                            alert={alert}
+                            randomImage={randomImage} />
+                    </Popup>
+                        )}  
                 </MapGL>
-                    {/* <LocationCard
-                        user={user}
-                        alert={alert}
-                        pin={pin}
-                        randomNumber={randomNumber}
-                        randomImage={randomImage} /> */}
             </MapBox>
              ) : (
-        <LoadingWrapper>
-          <Spinner className="center" animation="grow" variant="success" />
-        </LoadingWrapper>
-      )}
+            <LoadingWrapper>
+                <Spinner className="center" animation="grow" variant="success" />
+            </LoadingWrapper>
+            )}
         </div>
     )
 }
