@@ -15,13 +15,12 @@ function ReactMap() {
     const [viewport, setViewport] = useState({
         latitude: 40.7128,
         longitude: -74.0060,
-        zoom: 9,
+        zoom: 1,
         width: "95vw",
         height: "45vh"
     })
     const [map, setMap] = useState(null)
     const mapContainer = useRef(null);
-    // console.log(mapContainer)
 
     useEffect(() => {
         mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -38,12 +37,11 @@ function ReactMap() {
                 map.resize();
             })
 
-            // const popUp = new mapboxgl.Popup({ closeOnClick: false })
-            //     .setLngLat([-75.6903, 45.4211])
-            //     .setHTML('<h1>Hello World</h1>')
-            //     .addTo(map)
-
-            const marker = new mapboxgl.Marker().setLngLat([-75.6903, 45.4211]).setPopup(new mapboxgl.Popup().setHTML("<h1>Hello</h1>")).addTo(map)
+            const marker = new mapboxgl.Marker()
+            .setLngLat([-75.6903, 45.4211])
+            .setPopup(new mapboxgl.Popup()
+            .setHTML("<h1>Hello</h1>"))
+            .addTo(map)
         }
 
         if (!map) initializeMap({ setMap, mapContainer });
