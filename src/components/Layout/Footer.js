@@ -3,85 +3,85 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function Footer() {
-  return (
-    <FooterWrapper>
-      <GridWrapper>
-        <Grid1>
-          <ImageWrapper>
-            <img src="./icons/logo.png" alt="Logo" />
-          </ImageWrapper>
-          <HomeAndAboutWrapper>
-            <HomeDiv>
-              <h5> HOME </h5>
-              <Link to="/">Map</Link>
-              <Link to="/">Our Story</Link>
-              <Link to="/">FAQ</Link>
-            </HomeDiv>
-            <AboutDiv>
-              <h5> ABOUT </h5>
-              <Link to="/">Our Mission</Link>
-              <Link to="/">Why Compost?</Link>
-              <Link to="/">More Resources</Link>
-            </AboutDiv>
-          </HomeAndAboutWrapper>
-        </Grid1>
-        <Grid2>
-          <div>
-            <h5>Join the Compost Conversation</h5>
-            <p> Subscribe Below</p>
-          </div>
-          <FormWithButton>
-            <div className="fixedDiv">
-              <form autoComplete="off" action="/" method="get">
-                <input placeholder="Email" type="text" id="" name="lname" />
-                <span>
-                  <button type="submit" value="submit">
-                    {" "}
-                    <img
-                      src="./icons/right-arrow.png"
-                      alt="Right Arrow"
-                      width="46px"
-                    />
-                  </button>
-                </span>
-              </form>
-            </div>
-          </FormWithButton>
-        </Grid2>
-        <Grid3>
-          <div>
-            <h5>FOLLOW US</h5>
-            <IconsGalore>
-              <Link to="/facebook">
-                <img src="./icons/facebook.svg" alt="Facebook" />
-              </Link>
-              <Link to="/linkedin">
-                {" "}
-                <img src="./icons/linkedin.svg" alt="LinkedIn" />
-              </Link>
-              <Link to="/twitter">
-                <img src="./icons/twitter.svg" alt="Twitter" />
-              </Link>
-              <Link to="/instagram">
-                <img src="./icons/instagram.svg" alt="Instagram" />
-              </Link>
-              <Link to="/tiktok">
-                {" "}
-                <img src="./icons/tiktok.svg" alt="Tiktok" />
-              </Link>
-            </IconsGalore>
-          </div>
-        </Grid3>
-      </GridWrapper>
-      <EndingStatement>
-        <p>
-          Website Policies | Accesibility Statement | Site Map All Rights
-          Reserved | Site Last Updated on 02/22/2021 Copyright
+    return (
+        <FooterWrapper>
+            <GridWrapper>
+                <Grid1>
+                    <ImageWrapper>
+                        <img src="./icons/logo.png" alt="Logo" />
+                    </ImageWrapper>
+                    <HomeAndAboutWrapper>
+                        <HomeDiv>
+                            <h5> HOME </h5>
+                            <Link to="/">Map</Link>
+                            <Link to="/">Our Story</Link>
+                            <Link to="/">FAQ</Link>
+                        </HomeDiv>
+                        <AboutDiv>
+                            <h5> ABOUT </h5>
+                            <Link to="/about">Our Mission</Link>
+                            <Link to="/about">Why Compost?</Link>
+                            <Link to="/about">More Resources</Link>
+                        </AboutDiv>
+                    </HomeAndAboutWrapper>
+                </Grid1>
+                <Grid2>
+                    <div>
+                        <h5>Join the Compost Conversation</h5>
+                        <p> Subscribe Below</p>
+                    </div>
+                    <FormWithButton>
+                        <div className="fixedDiv">
+                            <form autoComplete="off" action="/" method="get">
+                                <input placeholder="Email" type="text" id="" name="lname" />
+                                <span>
+                                    <button type="submit" value="submit">
+                                        {" "}
+                                        <img
+                                            src="./icons/right-arrow.png"
+                                            alt="Right Arrow"
+                                            width="46px"
+                                        />
+                                    </button>
+                                </span>
+                            </form>
+                        </div>
+                    </FormWithButton>
+                </Grid2>
+                <Grid3>
+                    <div>
+                        <h5>FOLLOW US</h5>
+                        <IconsGalore>
+                            <Link to="/facebook">
+                                <img src="./icons/facebook.svg" alt="Facebook" />
+                            </Link>
+                            <Link to="/linkedin">
+                                {" "}
+                                <img src="./icons/linkedin.svg" alt="LinkedIn" />
+                            </Link>
+                            <Link to="/twitter">
+                                <img src="./icons/twitter.svg" alt="Twitter" />
+                            </Link>
+                            <Link to="/instagram">
+                                <img src="./icons/instagram.svg" alt="Instagram" />
+                            </Link>
+                            <Link to="/tiktok">
+                                {" "}
+                                <img src="./icons/tiktok.svg" alt="Tiktok" />
+                            </Link>
+                        </IconsGalore>
+                    </div>
+                </Grid3>
+            </GridWrapper>
+            <EndingStatement>
+                <p>
+                    Website Policies | Accesibility Statement | Site Map All Rights
+                    Reserved | Site Last Updated on 02/22/2021 Copyright
         </p>
-        <p> COMPOSTRACK USA </p>
-      </EndingStatement>
-    </FooterWrapper>
-  );
+                <p> COMPOSTRACK USA </p>
+            </EndingStatement>
+        </FooterWrapper>
+    );
 }
 
 const backgroundColour = "#DEF6E5";

@@ -23,29 +23,42 @@ function OurTeam() {
                                 </Row>
                                 <Row>
                                     <Col md={4}>
-                                        <Image src="./img/team/1.png" />
+                                        <a href="https://www.linkedin.com/in/arbydabu/">
+                                            <Image src="./img/team/1.png" />
+                                        </a>
                                     </Col>
                                     <Col md={4}>
-                                        <Image src="./img/team/2.png" />
+                                        <a href="https://www.linkedin.com/in/lily-basile/">
+                                            <Image src="./img/team/2.png" />
+                                        </a>
                                     </Col>
                                     <Col md={4}>
-                                        <Image src="./img/team/3.png" />
+                                        <a href="https://www.linkedin.com/in/naomilichtner/">
+                                            <Image src="./img/team/3.png" />
+                                        </a>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col md={4}>
-                                        <Image src="./img/team/4.png" />
+                                        <a href="https://www.linkedin.com/in/jaimegoff/">
+                                            <Image src="./img/team/4.png" />
+                                        </a>
                                     </Col>
                                     <Col md={4}>
+                                        <a href="https://www.linkedin.com/in/ebsano/"></a>
                                         <Image src="./img/team/5.png" />
                                     </Col>
                                     <Col md={4}>
-                                        <Image src="./img/team/6.png" />
+                                        <a href="https://www.linkedin.com/in/willandreae/">
+                                            <Image src="./img/team/6.png" />
+                                        </a>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col md={12} className="centerChild">
-                                        <Image src="./img/team/7.png" />
+                                        <a href="https://www.linkedin.com/in/taaseen71/">
+                                            <Image src="./img/team/7.png" />
+                                        </a>
                                     </Col>
                                 </Row>
                             </Container>
@@ -93,6 +106,7 @@ const HomeDiv = styled.div`
 
 const BodyHeader = styled.h2`
   text-align: center;
+  font-family: "Domine", serif;
   color: #1e8e00;
   font-size: 65px;
   padding: 3rem 0 1rem 0;
