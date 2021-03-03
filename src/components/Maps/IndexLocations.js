@@ -14,7 +14,7 @@ const IndexLocations = ({ user, alert }) => {
         longitude: -73.7949,
         zoom: 9,
         width: "95vw",
-        height: "60vh",
+        height: "80vh",
     });
 
     useEffect(() => {
