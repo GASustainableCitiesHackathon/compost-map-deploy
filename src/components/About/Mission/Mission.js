@@ -61,6 +61,7 @@ const HomeDiv = styled.div`
 const BodyHeader = styled.h2`
   color: #1e8e00;
   font-size: 65px;
+  font-family: "Domine", serif;
   padding: 3rem 0 1rem 0;
 `;
 
