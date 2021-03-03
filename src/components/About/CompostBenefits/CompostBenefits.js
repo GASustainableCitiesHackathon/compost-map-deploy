@@ -127,6 +127,7 @@ const ImageDiv = styled.div`
 
 const BodyHeader = styled.h2`
 	color: #1E8E00;
+    font-family: "Domine", serif;
     font-size: 65px;
     padding: 0 0 0 5rem;
 	position: relative;

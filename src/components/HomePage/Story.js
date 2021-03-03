@@ -3,31 +3,31 @@ import React from "react";
 import Faq from "./Faq";
 
 const OurStory = () => {
-  return (
-    <>
-      <Story>
-        <ImageBox>
-          <img src="./img/children-planting.svg" alt="children planting" />
-        </ImageBox>
-        <Body>
-          <Title>OUR STORY</Title>
-          <Paragraph>
-            A tech team of General Assembly grads, we wanted to fuse our powers
-            of engineering, data and design to give back to Mother Nature. A
-            mutual interest in sustainable cities led to a focus on composting,
-            a movement that helps both people and planet as it grows by the day!
-            Want to join us?
+    return (
+        <>
+            <Story>
+                <ImageBox>
+                    <img src="./img/children-planting.svg" alt="children planting" />
+                </ImageBox>
+                <Body>
+                    <Title>OUR STORY</Title>
+                    <Paragraph>
+                        A tech team of General Assembly grads, we wanted to fuse our powers
+                        of engineering, data and design to give back to Mother Nature. A
+                        mutual interest in sustainable cities led to a focus on composting,
+                        a movement that helps both people and planet as it grows by the day!
+                        Want to join us?
           </Paragraph>
-          <LearnMore>
-            <div>
-              <button>Learn More</button>
-            </div>
-          </LearnMore>
-        </Body>
-      </Story>
-      <Faq />
-    </>
-  );
+                    <LearnMore>
+                        <div>
+                            <button>Learn More</button>
+                        </div>
+                    </LearnMore>
+                </Body>
+            </Story>
+            <Faq />
+        </>
+    );
 };
 
 const Story = styled.div`
@@ -80,8 +80,10 @@ const ImageBox = styled.div`
   @media (max-width: 768px) {
     display: flex;
     align-self: center;
+    justify-content:center;
     img {
-      width: 200px;
+      /* width: 200px; */
+      height: 80px;
     }
   }
 `;
